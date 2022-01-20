@@ -7,12 +7,14 @@ import {
   HomePage,
   ProductsPage,
   SingleProductPage,
+  CheckoutPage,
 } from "./pages";
 
 function App() {
   return (
     <Router>
       <Navbar />
+      <Sidebar />
       <Switch>
         <Route path={"/"} exact>
           <HomePage />
@@ -20,13 +22,14 @@ function App() {
         <Route path={"/about"}>
           <AboutPage />
         </Route>
-        <Route path={"/products"} exact>
+        <Route path={"/products"}>
           <ProductsPage />
         </Route>
-        <Route path={"/products/:id"} exact>
-          <SingleProductPage />
+        <Route path={"/products/:id"} children={<SingleProductPage />} />
+        <Route path={"/checkout"}>
+          <CheckoutPage />
         </Route>
-        <Route path={"*"} exact>
+        <Route path={"*"}>
           <ErrorPage />
         </Route>
       </Switch>
