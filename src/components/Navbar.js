@@ -27,9 +27,9 @@ const Nav = () => {
               <Link to={url}>{text}</Link>
             </li>
           ))}
-          {/* <li>
+          <li>
             <Link to={"/checkout"}>checkout</Link>
-          </li> */}
+          </li>
         </ul>
         <div className='cart-btn-wrapper'>
           <CartButtons />
