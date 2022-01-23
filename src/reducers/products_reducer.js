@@ -9,16 +9,35 @@ import {
   GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
 
-const products_reducer = (state, action) => {
-  switch (action.type) {
+// const products_reducer = (state, action) => {
+const products_reducer = (state, { type, payload }) => {
+  switch (type) {
     case SIDEBAR_OPEN:
       return { ...state, isSidebarOpen: true };
     case SIDEBAR_CLOSE:
       return { ...state, isSidebarOpen: false };
+    case GET_PRODUCTS_BEGIN:
+      return { ...state, products_loading: true };
+    case GET_PRODUCTS_SUCCESS:
+      const featured_products = payload.data.filter(
+        (product) => product.featured === true
+      );
+      return {
+        ...state,
+        products_loading: false,
+        featured_products,
+        products: payload.data,
+      };
+    case GET_PRODUCTS_ERROR:
+      return {
+        ...state,
+        products_loading: false,
+        products_error: { show: true, msg: "Cannot fetch" },
+      };
     default:
-      return state;
+      throw new Error(`No Matching "${type}" - action type`);
+    // return state;
   }
-  // throw new Error(`No Matching "${action.type}" - action type`);
 };
 
 export default products_reducer;
