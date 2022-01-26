@@ -17,6 +17,16 @@ const initialState = {
   all_products: [],
   grid_view: true,
   sort: "price-lowest",
+  filters: {
+    searchText: "",
+    category: "all",
+    company: "all",
+    color: "all",
+    min_price: 0,
+    max_price: 0,
+    price: 0,
+    free_shipping: false,
+  },
 };
 
 const FilterContext = React.createContext();
@@ -25,13 +35,15 @@ export const FilterProvider = ({ children }) => {
   const { products } = useProductsContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log(
-    "🚀TCL: ~ file: filter_context.js ~ line 21 ~ filtered_products",
-    state.filtered_products
-  );
   useEffect(() => {
+    console.log("run load products");
     dispatch({ type: LOAD_PRODUCTS, payload: { data: products } });
   }, [products]);
+
+  console.log(
+    "🚀TCL: ~ file: filter_context.js ~ line 31 ~ all_products",
+    state.all_products
+  );
 
   const handleGridView = () => {
     dispatch({ type: SET_GRIDVIEW });
@@ -51,12 +63,60 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: SORT_PRODUCTS });
   };
   useEffect(() => {
-    handleSortProducts();
-  }, [state.sort]);
+    // !important: add filter before sort
+    dispatch({ type: FILTER_PRODUCTS });
+    dispatch({ type: SORT_PRODUCTS });
+  }, [products, state.sort, state.filters]);
+
+  const allCategories = [
+    "all",
+    ...new Set(state.filtered_products.map((product) => product.category)),
+  ];
+  console.log(
+    "🚀TCL: ~ file: filter_context.js ~ line 70 ~ FilterProvider ~ allCategories",
+    allCategories
+  );
+
+  const updateFilters = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    // if (name === "category") {
+    //   value = e.target.textContent;
+    // }
+    if (name === "color") {
+      // myseft
+      // value = e.target.getAttribute("data-color");
+      //tutorial
+      value = e.target.dataset.color;
+    }
+    if (name === "price") {
+      value = Number(value);
+    }
+    if (name === "free_shipping") {
+      value = e.target.checked;
+    }
+    console.log(
+      "🚀TCL: ~ file: filter_context.js ~ line 69 ~ updateFilters ~ name",
+      name,
+      value
+    );
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  };
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
 
   return (
     <FilterContext.Provider
-      value={{ ...state, handleGridView, handleListView, updateSort }}
+      value={{
+        ...state,
+        handleGridView,
+        handleListView,
+        updateSort,
+        updateFilters,
+        clearFilters,
+        allCategories,
+      }}
     >
       {children}
     </FilterContext.Provider>

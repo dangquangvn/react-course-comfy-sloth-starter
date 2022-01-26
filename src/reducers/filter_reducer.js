@@ -14,12 +14,15 @@ import { sortType } from "../utils/constants";
 const filter_reducer = (state, { type, payload }) => {
   switch (type) {
     case LOAD_PRODUCTS:
+      let maxPrice = payload.data.map((p) => p.price);
+      maxPrice = Math.max(...maxPrice);
       return {
         ...state,
         // filtered_products: payload.data,
         // all_products: payload.data,
-        filtered_products: [...payload.data],
         all_products: [...payload.data],
+        filtered_products: [...payload.data],
+        filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
       };
     case SET_GRIDVIEW:
       return { ...state, grid_view: true };
@@ -30,11 +33,6 @@ const filter_reducer = (state, { type, payload }) => {
     case SORT_PRODUCTS: {
       // let tempSort = payload.value || sort.PRICE_LOWEST;
       const { sort, filtered_products } = state;
-      console.log(
-        "🚀TCL: ~ file: filter_reducer.js ~ line 33 ~ sort",
-        sort,
-        sort.PRICE_HIGHEST
-      );
       let tempProducts = [...filtered_products];
       // if (tempSort === sort.PRICE_LOWEST) {
       if (sort === sortType.PRICE_LOWEST) {
@@ -76,13 +74,35 @@ const filter_reducer = (state, { type, payload }) => {
           (a, b) => "" + b.name.localeCompare(a.name)
         );
       }
-      console.log(
-        "🚀TCL: ~ file: filter_reducer.js ~ line 51 ~ tempProducts",
-        tempProducts
-      );
       return { ...state, filtered_products: tempProducts };
-      // return state;
     }
+    case UPDATE_FILTERS: {
+      // filters[payload.name]
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [payload.name]: payload.value,
+        },
+      };
+    }
+    case FILTER_PRODUCTS:
+      return {
+        ...state,
+      };
+    case CLEAR_FILTERS:
+      return {
+        ...state,
+        filters: {
+          ...state.filter,
+          searchText: "",
+          category: "all",
+          company: "all",
+          color: "all",
+          price: state.filters.max_price,
+          free_shipping: false,
+        },
+      };
     default:
       throw new Error(`No Matching "${type}" - action type`);
   }
