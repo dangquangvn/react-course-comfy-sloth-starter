@@ -22,7 +22,7 @@ function App() {
         <Route path={"/about"}>
           <AboutPage />
         </Route>
-        <Route path={"/products"}>
+        <Route path={"/products"} exact>
           <ProductsPage />
         </Route>
         <Route path={"/products/:id"} children={<SingleProductPage />} />
