@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/products_reducer";
-import { products_url as url } from "../utils/constants";
+import { products_url as url, single_product_url } from "../utils/constants";
 import mockProducts from "../utils/mockProductsData";
 import {
   SIDEBAR_OPEN,
@@ -13,15 +13,19 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
   GET_FEATURED_PRODUCTS,
+  GET_SINGLE_PRODUCT_MOCK,
 } from "../actions";
 
 const initialState = {
   isSidebarOpen: false,
   products_loading: false,
-  products_error: { show: false, msg: "" },
+  products_error: false,
   // products: [],
   products: mockProducts,
   featured_products: [],
+  single_product_loading: false,
+  single_product_error: false,
+  single_product: {},
 };
 
 const ProductsContext = React.createContext();
@@ -52,13 +56,40 @@ export const ProductsProvider = ({ children }) => {
   const getFeaturedProducts = () => {
     dispatch({ type: GET_FEATURED_PRODUCTS, payload: { data: mockProducts } });
   };
+
+  const fetchSingleProduct = async (id) => {
+    dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
+    try {
+      const { data } = await axios.get(`${single_product_url}${id}`);
+      dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: { data } });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
+    }
+  };
+
+  const getSingleProductMock = (id) => {
+    dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
+    console.log("id ne:", id);
+    dispatch({ type: GET_SINGLE_PRODUCT_MOCK });
+  };
+
   useEffect(() => {
     // fetchProducts(url);
     getFeaturedProducts();
+    // fetchSingleProduct("recNZ0koOqEmilmoz");
   }, []);
 
   return (
-    <ProductsContext.Provider value={{ ...state, openSidebar, closeSidebar }}>
+    <ProductsContext.Provider
+      value={{
+        ...state,
+        openSidebar,
+        closeSidebar,
+        fetchSingleProduct,
+        getSingleProductMock,
+      }}
+    >
       {children}
     </ProductsContext.Provider>
   );

@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const PageHero = ({ title }) => {
+const PageHero = ({ title, isProduct }) => {
   return (
     <Wrapper>
       <div className='section-center'>
         <h3>
-          <Link to={"/"}>Home</Link>/ {title}
+          <Link to={"/"}>Home</Link>
+          {isProduct && <Link to={"/products"}>/ products</Link>}/ {title}
         </h3>
       </div>
     </Wrapper>

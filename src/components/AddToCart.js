@@ -1,13 +1,51 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { FaCheck } from 'react-icons/fa'
-import { useCartContext } from '../context/cart_context'
-import AmountButtons from './AmountButtons'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
+import { useCartContext } from "../context/cart_context";
+import AmountButtons from "./AmountButtons";
 
-const AddToCart = () => {
-  return <h4>addToCart </h4>
-}
+const AddToCart = ({ product }) => {
+  const { colors, id, stock } = product;
+  const [mainColor, setMainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+  const checkNumber = (number) => {
+    if (number > stock) {
+      return stock;
+    } else {
+      return number;
+    }
+  };
+  const handleCount = (e) => {
+    const checkMinusBtn = e.target.classList.contains("btn-minus");
+    if (checkMinusBtn) {
+      setAmount((oldAmount) => checkNumber(oldAmount - 1));
+    } else {
+      setAmount((oldAmount) => checkNumber(oldAmount + 1));
+    }
+  };
+  return (
+    <Wrapper>
+      <div className='colors'>
+        <span>Colors : </span>
+        <div>
+          {colors.map((color, index) => (
+            <button
+              className={`color-btn ${mainColor === color ? "active" : ""}`}
+              style={{ backgroundColor: color }}
+              onClick={() => setMainColor(color)}
+              key={index}
+            >
+              {mainColor === color && <FaCheck />}
+            </button>
+          ))}
+        </div>
+      </div>
+      <AmountButtons stock={stock} amount={amount} handleCount={handleCount} />
+      <div className='btn-container btn'>add to cart</div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   margin-top: 2rem;
@@ -53,5 +91,5 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     width: 140px;
   }
-`
-export default AddToCart
+`;
+export default AddToCart;
