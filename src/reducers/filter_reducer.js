@@ -8,6 +8,7 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
 } from "../actions";
+import { useProductsContext } from "../context/products_context";
 import { sortType } from "../utils/constants";
 
 // const filter_reducer = (state, action) => {
@@ -87,8 +88,62 @@ const filter_reducer = (state, { type, payload }) => {
       };
     }
     case FILTER_PRODUCTS:
+      const { all_products } = state;
+      const {
+        searchText,
+        category,
+        company,
+        color,
+        min_price,
+        max_price,
+        price,
+        free_shipping,
+      } = state.filters;
+
+      let tempProducts = [...all_products];
+      // filtering
+      if (searchText) {
+        tempProducts = tempProducts.filter(
+          // could search any text
+          // E.g: search "arm" -> display arm chair ✅
+          // search "chair" -> display  arm chair ✅
+          (product) => product.name.toLowerCase().indexOf(searchText) !== -1
+          // could only search text from left to right
+          // E.g: search "arm" -> display arm chair ✅
+          // search "chair" -> cannot find arm chair ❌
+          //& (product) => product.name.toLowerCase().startsWith(searchText)
+        );
+      }
+      if (category && category !== "all") {
+        tempProducts = tempProducts.filter(
+          (product) => product.category === category
+        );
+      }
+      if (company && company !== "all") {
+        tempProducts = tempProducts.filter(
+          (product) => product.company === company
+        );
+      }
+      if (color && color !== "all") {
+        tempProducts = tempProducts.filter(
+          //= method to check item contains in array
+          //& method 1: myself
+          // (product) => product.colors.indexOf(color) !== -1
+          //& method 2: john smilga tutorial
+          (product) => product.colors.find((c) => c === color)
+        );
+      }
+      // if (price) {
+      //= don't check if (price) because we want when price === 0 it will display nothing, price = 0 -> will make if (price) = false -> does not check price anymore
+      tempProducts = tempProducts.filter((product) => product.price <= price);
+      // }
+      if (free_shipping) {
+        tempProducts = tempProducts.filter((product) => product.shipping);
+      }
+
       return {
         ...state,
+        filtered_products: tempProducts,
       };
     case CLEAR_FILTERS:
       return {

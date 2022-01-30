@@ -23,8 +23,8 @@ const Filters = () => {
     filtered_products,
     all_products,
   } = useFilterContext();
-  // const categories = getUniqueValues(all_products, "category");
-  const categories = getUniqueValues(filtered_products, "category");
+  const categories = getUniqueValues(all_products, "category");
+  // const categories = getUniqueValues(filtered_products, "category");
   const colors = getUniqueValues(all_products, "colors");
   const companies = getUniqueValues(all_products, "company");
   return (
