@@ -67,16 +67,79 @@ const cart_reducer = (state, { type, payload }) => {
       }
     }
     case TOGGLE_CART_ITEM_AMOUNT: {
-      const { id, value: newAmount } = payload;
+      //== method 1
+      // const { id, value: newAmount } = payload;
+      // const tempCart = state.cart.map((cartItem) => {
+      //   if (cartItem.id === id) {
+      //     // let newAmount = value;
+      //     return { ...cartItem, amount: newAmount };
+      //   } else {
+      //     return cartItem;
+      //   }
+      // });
+      // return { ...state, cart: tempCart };
+      //= method 2
+      const { id, value } = payload;
       const tempCart = state.cart.map((cartItem) => {
         if (cartItem.id === id) {
-          // let newAmount = value;
-          return { ...cartItem, amount: newAmount };
+          if (value === "inc") {
+            let newAmount = checkNumber({
+              value: cartItem.amount + 1,
+              max: cartItem.max,
+            });
+            return { ...cartItem, amount: newAmount };
+          } else if (value === "dec") {
+            let newAmount = checkNumber({
+              value: cartItem.amount - 1,
+              min: 1,
+            });
+            return { ...cartItem, amount: newAmount };
+          }
         } else {
           return cartItem;
         }
       });
       return { ...state, cart: tempCart };
+    }
+    case REMOVE_CART_ITEM: {
+      const { id } = payload;
+      const tempCart = state.cart.filter((cartItem) => cartItem.id !== id);
+      return { ...state, cart: tempCart };
+    }
+    case CLEAR_CART: {
+      return {
+        ...state,
+        cart: [],
+        total_items: 0,
+        total_amount: 0,
+        shipping_fee: 534,
+      };
+    }
+    case COUNT_CART_TOTALS: {
+      const { totalItems, totalAmount } = state.cart.reduce(
+        (acc, item) => {
+          const { amount, price } = item;
+          if (!amount) {
+            return acc;
+          }
+          //= method 1
+          // return {
+          //   ...acc,
+          //   totalItems: acc.totalItems + amount,
+          //   totalAmount: acc.totalAmount + amount * price,
+          // };
+          //= method 2
+          acc.totalItems += amount;
+          acc.totalAmount += amount * price;
+          return acc;
+        },
+        { totalItems: 0, totalAmount: 0 }
+      );
+      return {
+        ...state,
+        total_items: totalItems,
+        total_amount: totalAmount,
+      };
     }
     default:
       throw new Error(`No Matching "${type}" - action type`);

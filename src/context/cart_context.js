@@ -49,16 +49,22 @@ export const CartProvider = ({ children }) => {
   };
   // toggle amount
   const handleToggleAmount = (id, value) => {
-    console.log("run handleToggleAmount -->, id: ", id, "value: ", value);
     dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { id, value } });
   };
   // clear cart
-  const handleClearCart = () => {};
+  const handleClearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
 
   //local storage
   useEffect(() => {
+    // save cart in localStorage
     localStorage.setItem("cart", JSON.stringify(state.cart));
+    // count total item and total price
+    dispatch({ type: COUNT_CART_TOTALS });
   }, [state.cart]);
+
+  // count cart totals
 
   return (
     <CartContext.Provider
