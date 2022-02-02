@@ -13,6 +13,8 @@ const AddToCart = ({ product }) => {
   const checkNumber = (number) => {
     if (number > stock) {
       return stock;
+    } else if (number < 1) {
+      return 1;
     } else {
       return number;
     }
