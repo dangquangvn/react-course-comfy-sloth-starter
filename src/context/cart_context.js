@@ -35,14 +35,24 @@ export const CartProvider = ({ children }) => {
     );
     dispatch({ type: ADD_TO_CART, payload: { id, color, amount, product } });
   };
-
+  //remove item
   const handleRemoveCartItems = (id) => {
     dispatch({ type: REMOVE_CART_ITEM, payload: { id } });
   };
+  // toggle amount
+  const handleToggleAmount = (id, value) => {};
+  // clear cart
+  const handleClearCart = () => {};
 
   return (
     <CartContext.Provider
-      value={{ ...state, handleAddToCart, handleRemoveCartItems }}
+      value={{
+        ...state,
+        handleAddToCart,
+        handleRemoveCartItems,
+        handleToggleAmount,
+        handleClearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
