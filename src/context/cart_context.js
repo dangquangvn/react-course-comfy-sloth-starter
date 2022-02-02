@@ -8,10 +8,19 @@ import {
   COUNT_CART_TOTALS,
 } from "../actions";
 
+const getLocalStorage = () => {
+  let cart = localStorage.getItem("cart");
+  if (cart) {
+    return JSON.parse(cart);
+  } else {
+    return [];
+  }
+};
+
 const initialState = {
   // store ordered product
   // cart_products: [], -> self
-  cart: [],
+  cart: getLocalStorage(),
   // tong so luong san pham ordered
   total_items: 0,
   // tong so tien
@@ -23,7 +32,6 @@ const CartContext = React.createContext();
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   // in CartPage need display : product (name, img), mainColor (user choose), amount
   const handleAddToCart = (id, color, amount, product) => {
     console.log(
@@ -43,6 +51,11 @@ export const CartProvider = ({ children }) => {
   const handleToggleAmount = (id, value) => {};
   // clear cart
   const handleClearCart = () => {};
+
+  //local storage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(state.cart));
+  }, [state.cart]);
 
   return (
     <CartContext.Provider
