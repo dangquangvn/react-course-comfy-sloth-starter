@@ -8,6 +8,7 @@ import {
   ProductsPage,
   SingleProductPage,
   CheckoutPage,
+  CartPage,
 } from "./pages";
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
           <ProductsPage />
         </Route>
         <Route path={"/products/:id"} children={<SingleProductPage />} />
+        <Route path={"/cart"}>
+          <CartPage />
+        </Route>
         <Route path={"/checkout"}>
           <CheckoutPage />
         </Route>

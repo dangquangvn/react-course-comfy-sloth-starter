@@ -14,6 +14,7 @@ import {
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { MOCK_SINGLE_PRODUCT_ID } from "../actions";
+import { useCartContext } from "../context/cart_context";
 
 const SingleProductPage = () => {
   const { id } = useParams();

@@ -18,3 +18,39 @@ export const getUniqueValues = (data, type) => {
   // unique =
   return ["all", ...new Set(unique)];
 };
+
+const checkMax = (value, max = null) => {
+  if (max) {
+    if (value > max) {
+      return max;
+    }
+    return value;
+  }
+};
+
+const checkMin = (value, min = null) => {
+  if (min) {
+    if (value < min) {
+      return min;
+    }
+    return value;
+  }
+};
+
+// export const checkNumber = (value, max = null, min = null) => {
+export const checkNumber = ({ ...props }) => {
+  const { value, max, min } = props;
+  if (!value) {
+    return;
+  }
+  let tempValue = value;
+  if (min && max) {
+    tempValue = checkMin(value, min);
+    tempValue = checkMax(value, max);
+  } else if (max) {
+    tempValue = checkMax(value, max);
+  } else if (min) {
+    tempValue = checkMin(value, min);
+  }
+  return tempValue;
+};
