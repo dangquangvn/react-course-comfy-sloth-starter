@@ -6,22 +6,24 @@ import { FaTrash } from "react-icons/fa";
 import { useCartContext } from "../context/cart_context";
 const CartItem = (props) => {
   const { id, image, name, color, amount, max, price } = props;
-  const { handleToggleAmount } = useCartContext();
-  const [newAmount, setNewAmount] = useState(amount);
+  const { handleToggleAmount, handleRemoveCartItems } = useCartContext();
+  // const [newAmount, setNewAmount] = useState(amount);
   const handleCount = (e) => {
     const isMinusBtn = e.target.classList.contains("btn-minus");
     if (isMinusBtn) {
-      setNewAmount((oldAmount) =>
-        checkNumber({ value: oldAmount - 1, min: 0 })
-      );
+      // setNewAmount((oldAmount) =>
+      //   checkNumber({ value: oldAmount - 1, min: 1 })
+      // );
+      handleToggleAmount(id, "dec");
     } else {
-      setNewAmount((oldAmount) => checkNumber({ value: oldAmount + 1, max }));
+      // setNewAmount((oldAmount) => checkNumber({ value: oldAmount + 1, max }));
+      handleToggleAmount(id, "inc");
     }
   };
 
-  useEffect(() => {
-    handleToggleAmount(id, newAmount);
-  }, [newAmount]);
+  // useEffect(() => {
+  //   handleToggleAmount(id, newAmount);
+  // }, [newAmount]);
 
   return (
     <Wrapper>
@@ -42,10 +44,13 @@ const CartItem = (props) => {
       {/* price layout for large screen */}
       <div className='price'>{formatPrice(price)}</div>
       <div className='amount-bts'>
-        <AmountButtons amount={newAmount} handleCount={handleCount} />
+        {/* method 1 */}
+        {/* <AmountButtons amount={newAmount} handleCount={handleCount} /> */}
+        {/* method 2 */}
+        <AmountButtons amount={amount} handleCount={handleCount} />
       </div>
       <h5 className='subtotal'>{formatPrice(price * amount)}</h5>
-      <button className='remove-btn'>
+      <button className='remove-btn' onClick={() => handleRemoveCartItems(id)}>
         <FaTrash />
       </button>
     </Wrapper>
