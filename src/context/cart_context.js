@@ -48,7 +48,10 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: REMOVE_CART_ITEM, payload: { id } });
   };
   // toggle amount
-  const handleToggleAmount = (id, value) => {};
+  const handleToggleAmount = (id, value) => {
+    console.log("run handleToggleAmount -->, id: ", id, "value: ", value);
+    dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { id, value } });
+  };
   // clear cart
   const handleClearCart = () => {};
 

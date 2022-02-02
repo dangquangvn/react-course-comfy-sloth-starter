@@ -66,6 +66,18 @@ const cart_reducer = (state, { type, payload }) => {
         };
       }
     }
+    case TOGGLE_CART_ITEM_AMOUNT: {
+      const { id, value: newAmount } = payload;
+      const tempCart = state.cart.map((cartItem) => {
+        if (cartItem.id === id) {
+          // let newAmount = value;
+          return { ...cartItem, amount: newAmount };
+        } else {
+          return cartItem;
+        }
+      });
+      return { ...state, cart: tempCart };
+    }
     default:
       throw new Error(`No Matching "${type}" - action type`);
   }
