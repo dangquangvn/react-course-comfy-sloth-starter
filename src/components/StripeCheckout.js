@@ -50,7 +50,7 @@ const CheckoutForm = () => {
   const createPaymentIntent = async () => {
     // console.log("create payment intent");
     try {
-      const data = await axios.post(
+      const { data } = await axios.post(
         "/.netlify/functions/create-payment-intent",
         JSON.stringify({
           cart,
@@ -58,8 +58,10 @@ const CheckoutForm = () => {
           shipping_fee,
         })
       );
+      // console.log("🚀TCL: ~ file: StripeCheckout.js ~ line 62 ~ createPaymentIntent ~ data.clientSecret", data.clientSecret)
+      setClientSecret(data.clientSecret);
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 
