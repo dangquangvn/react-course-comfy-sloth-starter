@@ -1,16 +1,26 @@
 import React from "react";
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useProductsContext } from "../context/products_context";
 import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
+import { useLocation } from "react-router-dom";
 
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
-  const { loginWithRedirect, isAuthenticated, logout, user, myUser } =
-    useUserContext();
+  const {
+    loginWithRedirect,
+    isAuthenticated,
+    logout,
+    user,
+    myUser,
+    loginWithRedirectToCurrentPage,
+  } = useUserContext();
+
+  const location = useLocation();
+  const history = useHistory();
 
   return (
     <Wrapper className='cart-btn-wrapper'>
@@ -23,7 +33,21 @@ const CartButtons = () => {
       </Link>
       {/* {!isAuthenticated ? ( */}
       {!myUser ? (
-        <button type='button' className='auth-btn' onClick={loginWithRedirect}>
+        <button
+          type='button'
+          className='auth-btn'
+          onClick={() =>
+            // loginWithRedirect({ appState: { target: location.pathname } })
+            // loginWithRedirect({ returnTo: window.location.origin })
+            //= method 1
+            // loginWithRedirect({
+            //   appState: { returnTo: window.location.pathname },
+            // })
+            //= method 2
+            loginWithRedirectToCurrentPage()
+          }
+        >
+          {/* // <button type='button' className='auth-btn' onClick={loginWithRedirect}> */}
           Login
           <span className='cart-container'>
             <FaUserPlus />

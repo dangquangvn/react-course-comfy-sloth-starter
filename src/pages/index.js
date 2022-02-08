@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import ProductsPage from "./ProductsPage";
 import SingleProductPage from "./SingleProductPage";
 import HomePage from "./HomePage";
+import Auth0ProviderWithHistory from "./Auth0ProviderWithHistory";
 
 export {
   AboutPage,
@@ -18,4 +19,5 @@ export {
   ProductsPage,
   SingleProductPage,
   HomePage,
+  Auth0ProviderWithHistory,
 };

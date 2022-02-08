@@ -9,11 +9,15 @@ import {
   SingleProductPage,
   CheckoutPage,
   CartPage,
+  PrivateRoute,
+  AuthWrapper,
 } from "./pages";
 
 function App() {
   return (
-    <Router>
+    // <AuthWrapper>
+    // <Router>
+    <>
       <Navbar />
       <Sidebar />
       <Switch>
@@ -30,15 +34,17 @@ function App() {
         <Route path={"/cart"}>
           <CartPage />
         </Route>
-        <Route path={"/checkout"}>
+        <PrivateRoute path={"/checkout"}>
           <CheckoutPage />
-        </Route>
+        </PrivateRoute>
         <Route path={"*"}>
           <ErrorPage />
         </Route>
       </Switch>
       <Footer />
-    </Router>
+    </>
+    // </Router>
+    // </AuthWrapper>
   );
 }
 
