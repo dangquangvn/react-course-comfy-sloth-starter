@@ -16,7 +16,8 @@ import { useHistory } from "react-router-dom";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
-  const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
+  const { cart, total_amount, shipping_fee, handleClearCart } =
+    useCartContext();
   const { myUser } = useUserContext();
   const history = useHistory();
   // STRIPE SETUP STATE VARIABLES
@@ -87,13 +88,15 @@ const CheckoutForm = () => {
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
+      console.log("stripe failed");
     } else {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
-
+      console.log("stripe success");
       setTimeout(() => {
-        clearCart();
+        console.log("stripe redirect after 10s");
+        handleClearCart();
         history.push("/");
       }, 10000);
     }
