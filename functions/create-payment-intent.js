@@ -32,6 +32,7 @@ exports.handler = async function (event, context) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(),
       currency: "usd",
+      // currency: "vnd",
     });
 
     return {
