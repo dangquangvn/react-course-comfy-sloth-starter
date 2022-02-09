@@ -32,8 +32,8 @@ const SingleProductPage = () => {
   );
 
   useEffect(() => {
-    // fetchSingleProduct(id);
-    getSingleProductMock(`${url}${id}`);
+    fetchSingleProduct(id);
+    // getSingleProductMock(`${url}${id}`);
     // eslint-disable-next-line
   }, [id]);
 

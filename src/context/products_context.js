@@ -75,8 +75,8 @@ export const ProductsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // fetchProducts(url);
-    getFeaturedProducts();
+    fetchProducts(url);
+    // getFeaturedProducts();
     // fetchSingleProduct("recNZ0koOqEmilmoz");
   }, []);
 
