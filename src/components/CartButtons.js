@@ -59,7 +59,9 @@ const CartButtons = () => {
           className='auth-btn'
           onClick={() => logout({ returnTo: window.location.origin })}
         >
-          {user.nickname}
+          {user.nickname.length > 10
+            ? `${user.nickname.substring(0, 10)}...`
+            : user.nickname}
           <span className='cart-container'>
             <FaUserMinus />
           </span>
@@ -74,6 +76,7 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr 1fr;
   align-items: center;
   width: 225px;
+  gap: 1rem;
 
   .cart-btn {
     color: var(--clr-grey-1);
