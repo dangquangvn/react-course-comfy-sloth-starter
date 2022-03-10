@@ -36,14 +36,9 @@ export const FilterProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log("run load products");
+    // console.log("run load products");
     dispatch({ type: LOAD_PRODUCTS, payload: { data: products } });
   }, [products]);
-
-  console.log(
-    "🚀TCL: ~ file: filter_context.js ~ line 31 ~ all_products",
-    state.all_products
-  );
 
   const handleGridView = () => {
     dispatch({ type: SET_GRIDVIEW });
@@ -58,7 +53,7 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: UPDATE_SORT, payload: { sort: value } });
   };
   const handleSortProducts = () => {
-    console.log("handleSortProducts", state.sort);
+    // console.log("handleSortProducts", state.sort);
     // dispatch({ type: SORT_PRODUCTS, payload: { value: state.sort } });
     dispatch({ type: SORT_PRODUCTS });
   };
@@ -72,10 +67,6 @@ export const FilterProvider = ({ children }) => {
     "all",
     ...new Set(state.filtered_products.map((product) => product.category)),
   ];
-  console.log(
-    "🚀TCL: ~ file: filter_context.js ~ line 70 ~ FilterProvider ~ allCategories",
-    allCategories
-  );
 
   const updateFilters = (e) => {
     let name = e.target.name;
@@ -95,11 +86,11 @@ export const FilterProvider = ({ children }) => {
     if (name === "free_shipping") {
       value = e.target.checked;
     }
-    console.log(
-      "🚀TCL: ~ file: filter_context.js ~ line 69 ~ updateFilters ~ name",
-      name,
-      value
-    );
+    // console.log(
+    //   "🚀TCL: ~ file: filter_context.js ~ line 69 ~ updateFilters ~ name",
+    //   name,
+    //   value
+    // );
     dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
   };
   const clearFilters = () => {

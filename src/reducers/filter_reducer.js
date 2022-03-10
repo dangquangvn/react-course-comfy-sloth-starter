@@ -37,13 +37,13 @@ const filter_reducer = (state, { type, payload }) => {
       let tempProducts = [...filtered_products];
       // if (tempSort === sort.PRICE_LOWEST) {
       if (sort === sortType.PRICE_LOWEST) {
-        console.log("price-lowest === true");
+        // console.log("price-lowest === true");
         tempProducts = state.filtered_products.sort(
           (a, b) => a.price - b.price
         );
         // } else if (tempSort === sort.PRICE_HIGHEST) {
       } else if (sort === sortType.PRICE_HIGHEST) {
-        console.log("price-highest === true");
+        // console.log("price-highest === true");
         //= short work
         // tempProducts = state.filtered_products.sort(
         //   (a, b) => b.price - a.price
@@ -64,12 +64,12 @@ const filter_reducer = (state, { type, payload }) => {
         });
         // } else if (tempSort === sort.NAME_A) {
       } else if (sort === sortType.NAME_A) {
-        console.log("name_a === true");
+        // console.log("name_a === true");
         tempProducts = state.filtered_products.sort(
           (a, b) => "" + a.name.localeCompare(b.name)
         );
       } else {
-        console.log("name_z === true");
+        // console.log("name_z === true");
         // tempProducts = state.filtered_products.sort((a, b) => b.name - a.name);
         tempProducts = state.filtered_products.sort(
           (a, b) => "" + b.name.localeCompare(a.name)

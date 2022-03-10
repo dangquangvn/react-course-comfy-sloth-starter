@@ -6,10 +6,10 @@ import { useParams } from "react-router-dom";
 
 const AboutPage = () => {
   const params = useParams();
-  console.log(
-    "🚀TCL: ~ file: PageHero.js ~ line 6 ~ PageHero ~ params",
-    params
-  );
+  // console.log(
+  //   "🚀TCL: ~ file: PageHero.js ~ line 6 ~ PageHero ~ params",
+  //   params
+  // );
   return (
     <main>
       <PageHero title='about' />

@@ -11,7 +11,7 @@ const PrivateRoute = ({
   const { isAuthenticated, user } = useAuth0();
   const { myUser } = useUserContext();
   const isUser = isAuthenticated && user;
-  console.log("🚀TCL: ~ file: PrivateRoute.js ~ line 13 ~ isUser", isUser);
+
   return (
     <Route
       {...rest}

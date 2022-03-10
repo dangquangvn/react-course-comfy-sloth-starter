@@ -6,7 +6,7 @@ import { CartContent, PageHero } from "../components";
 
 const CartPage = () => {
   const { cart } = useCartContext();
-  console.log("🚀TCL: ~ file: CartPage.js ~ line 9 ~ CartPage ~ cart", cart);
+
   if (cart.length < 1) {
     return (
       <Wrapper className='page-100'>

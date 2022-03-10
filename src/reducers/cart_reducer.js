@@ -11,10 +11,7 @@ const cart_reducer = (state, { type, payload }) => {
   switch (type) {
     case ADD_TO_CART: {
       const { id, color, amount, product } = payload;
-      console.log(
-        "🚀TCL: ~ file: cart_reducer.js ~ line 13 ~ product",
-        product
-      );
+
       const tempItem = state.cart.find((item) => item.id === id + color);
       // existing item
       // update existing item

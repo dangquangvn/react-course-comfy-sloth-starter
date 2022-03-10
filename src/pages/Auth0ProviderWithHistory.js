@@ -9,10 +9,10 @@ const Auth0ProviderWithHistory = ({ children }) => {
   const history = useHistory();
 
   const onRedirectCallback = (appState) => {
-    console.log(
-      "🚀TCL: ~ file: Auth0ProviderWithHistory.js ~ line 12 ~ onRedirectCallback ~ appState",
-      appState
-    );
+    // console.log(
+    //   "🚀TCL: ~ file: Auth0ProviderWithHistory.js ~ line 12 ~ onRedirectCallback ~ appState",
+    //   appState
+    // );
     history.push((appState && appState.returnTo) || window.location.pathname);
     // history.push("/cart");
 

@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 const ListView = ({ filtered }) => {
   const { id, name, image, price, description } = filtered;
   const [more, setMore] = useState(false);
-  console.log(
-    "🚀TCL: ~ file: ListView.js ~ line 7 ~ ListView ~ filtered",
-    filtered
-  );
+  // console.log(
+  //   "🚀TCL: ~ file: ListView.js ~ line 7 ~ ListView ~ filtered",
+  //   filtered
+  // );
   return (
     <Wrapper>
       {filtered.map(({ id, name, image, price, description }) => (

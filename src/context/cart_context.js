@@ -34,13 +34,13 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   // in CartPage need display : product (name, img), mainColor (user choose), amount
   const handleAddToCart = (id, color, amount, product) => {
-    console.log(
-      "🚀TCL: ~ file: cart_context.js ~ line 29 ~ handleAddToCart ~ id",
-      id,
-      color,
-      amount,
-      product
-    );
+    // console.log(
+    //   "🚀TCL: ~ file: cart_context.js ~ line 29 ~ handleAddToCart ~ id",
+    //   id,
+    //   color,
+    //   amount,
+    //   product
+    // );
     dispatch({ type: ADD_TO_CART, payload: { id, color, amount, product } });
   };
   //remove item

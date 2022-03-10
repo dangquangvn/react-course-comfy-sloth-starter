@@ -70,7 +70,7 @@ export const ProductsProvider = ({ children }) => {
 
   const getSingleProductMock = (id) => {
     dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
-    console.log("id ne:", id);
+    // console.log("id ne:", id);
     dispatch({ type: GET_SINGLE_PRODUCT_MOCK });
   };
 

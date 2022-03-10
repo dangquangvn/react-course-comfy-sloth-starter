@@ -18,10 +18,10 @@ const ProductImages = ({ images = [{ url: "" }] }) => {
   useEffect(() => {
     setMain(images[checkNumber(value)]);
   }, [value]);
-  console.log(
-    "🚀TCL: ~ file: ProductImages.js ~ line 6 ~ ProductImages ~ main",
-    main
-  );
+  // console.log(
+  //   "🚀TCL: ~ file: ProductImages.js ~ line 6 ~ ProductImages ~ main",
+  //   main
+  // );
   const handleArrow = (e) => {
     const checkPrevBtn = e.target.classList.contains("icon-left");
     if (checkPrevBtn) {

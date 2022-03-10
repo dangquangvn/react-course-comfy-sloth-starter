@@ -26,10 +26,6 @@ const SingleProductPage = () => {
     fetchSingleProduct,
     getSingleProductMock,
   } = useProductsContext();
-  console.log(
-    "🚀TCL: ~ file: SingleProductPage.js ~ line 28 ~ SingleProductPage ~ product",
-    product
-  );
 
   useEffect(() => {
     fetchSingleProduct(id);

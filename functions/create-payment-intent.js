@@ -2,10 +2,6 @@
 // localhost:8888/.netlify/functions/create-payment-intent
 require("dotenv").config();
 const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_KEY);
-console.log(
-  "🚀TCL: ~ file: create-payment-intent.js ~ line 5 ~ process.env.REACT_APP_STRIPE_SECRET_KEY",
-  process.env.REACT_APP_STRIPE_SECRET_KEY
-);
 
 exports.handler = async function (event, context) {
   // const
